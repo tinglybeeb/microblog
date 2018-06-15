@@ -5,5 +5,8 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   # for URL: root/pages/about, find the controller with prefix "Pages" and call its "about" action
   get 'pages/about', to: 'pages#about'
+  # Gets resourceful routes (which map between HTTP verbs and URLs and controller actions)
+  # By convention, each action also maps to particular CRUD operations in a database
+  resources :articles
   
 end
