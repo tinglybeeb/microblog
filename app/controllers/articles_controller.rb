@@ -1,5 +1,8 @@
 class ArticlesController < ApplicationController
   
+  # Before selected actions run, run this method:
+  before_action :set_article, only: [:edit, :update, :show, :destroy]
+  
   # GET request: when the /articles URL is visited, render the index.html.erb view
   # The view uses the @articles object to generate dynamic content. @articles contains all the articles saved in the database
   def index
@@ -20,6 +23,7 @@ class ArticlesController < ApplicationController
   # If article object failed validations, then render article/new again
   def create
     @article = Article.new(article_params)
+    @article.save
     if @article.save
       flash[:notice] = "Article successfully created"
       redirect_to article_path(@article)
@@ -44,6 +48,7 @@ class ArticlesController < ApplicationController
   # PATCH request: When the selected article is updated, show flash message & redirect to the article's show page.
   def update
     @article = Article.find(params[:id])
+    @article.update(article_params)
     if @article.update(article_params)
       flash[:notice] = "Article successfully updated"
       redirect_to article_path(@article)
@@ -52,16 +57,22 @@ class ArticlesController < ApplicationController
     end
   end
   
-  # DELETE request: 
+  # DELETE request: When the :delete method is called on the selected article (identified with params)...
+  # Then destroy that article, show flash message, and redirect to articles list
   def destroy
-    @article = Article.find(params[:id])
     @article.destroy
     flash[:notice] = "Article successfully deleted"
     redirect_to articles_path
   end
   
-  # Tell Rails which attributes are allowed for new article objects – title and description
   private  
+    # sets the article to be engaged with (edited, shown, updated, destroyed)
+    # question: how does "params[:id]" work?
+    def set_article
+      @article = Article.find(params[:id])
+    end
+    
+    # Tell Rails which attributes are allowed for new article objects – title and description
     def article_params
       params.require(:article).permit(:title, :description)
     end
