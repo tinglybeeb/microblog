@@ -31,6 +31,10 @@ class UsersController < ApplicationController
     end
   end
   
+  def show
+    set_user
+  end
+  
   private    
     # saves the user object indicated in the params (from route's URL path) in @user, so the controller actions can be performed on the correct user object
     def set_user
