@@ -1,11 +1,12 @@
 class ArticlesController < ApplicationController
   
-  
+  # GET request: when the /articles URL is visited, render the index.html.erb view
+  # The view uses the @articles object to generate dynamic content. @articles contains all the articles saved in the database
   def index
     @articles = Article.all
   end
   
-  # GET request: when the articles/new URL is visited, run this instance method
+  # GET request: when the /articles/new URL is visited, run this instance method
   # A new Article object is saved inside the instance variable @article
   # This lets us generating the article creator form, as the form inputs are derived from the @article variable
   def new
@@ -49,6 +50,14 @@ class ArticlesController < ApplicationController
     else
       render 'edit'
     end
+  end
+  
+  # DELETE request: 
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+    flash[:notice] = "Article successfully deleted"
+    redirect_to articles_path
   end
   
   # Tell Rails which attributes are allowed for new article objects – title and description
