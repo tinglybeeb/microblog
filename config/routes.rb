@@ -9,4 +9,7 @@ Rails.application.routes.draw do
   # By convention, each action also maps to particular CRUD operations in a database
   resources :articles
   
+  get 'signup', to: 'users#new'
+  resources :users, except: [:new]
+  
 end

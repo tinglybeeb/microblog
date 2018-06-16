@@ -36,19 +36,19 @@ class ArticlesController < ApplicationController
   # Renders show.html.erb
   # The view template uses the instance variable's key-values (e.g. @article.title) for dynamic content
   def show
-    @article = Article.find(params[:id])
+    set_article
   end
   
   # GET request: When the articles/:id/edit URL is visited, run this instance method
   # the article object (id according to the URL) is saved into instance variable @articles
   # edit.html.erb is rendered. The form takes the existing values from @article
   def edit
-    @article = Article.find(params[:id])
+    set_article
   end
   
   # PATCH request: When the selected article is updated, show flash message & redirect to the article's show page.
   def update
-    @article = Article.find(params[:id])
+    set_article
     @article.update(article_params)
     if @article.update(article_params)
       flash[:notice] = "Article successfully updated"
@@ -61,6 +61,7 @@ class ArticlesController < ApplicationController
   # DELETE request: When the :delete method is called on the selected article (identified with params)...
   # Then destroy that article, show flash message, and redirect to articles list
   def destroy
+    set_article
     @article.destroy
     flash[:notice] = "Article successfully deleted"
     redirect_to articles_path
