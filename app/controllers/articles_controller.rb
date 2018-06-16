@@ -23,6 +23,7 @@ class ArticlesController < ApplicationController
   # If article object failed validations, then render article/new again
   def create
     @article = Article.new(article_params)
+    @article.user = User.first
     @article.save
     if @article.save
       flash[:notice] = "Article successfully created"
