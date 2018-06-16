@@ -1,6 +1,11 @@
 class ArticlesController < ApplicationController
   
-  # GET request: when the articles/new page is visited, run this instance method
+  
+  def index
+    @articles = Article.all
+  end
+  
+  # GET request: when the articles/new URL is visited, run this instance method
   # A new Article object is saved inside the instance variable @article
   # This lets us generating the article creator form, as the form inputs are derived from the @article variable
   def new
@@ -22,8 +27,28 @@ class ArticlesController < ApplicationController
     end
   end
   
+  # Renders show.html.erb
+  # The view template uses the instance variable's key-values (e.g. @article.title) for dynamic content
   def show
     @article = Article.find(params[:id])
+  end
+  
+  # GET request: When the articles/:id/edit URL is visited, run this instance method
+  # the article object (id according to the URL) is saved into instance variable @articles
+  # edit.html.erb is rendered. The form takes the existing values from @article
+  def edit
+    @article = Article.find(params[:id])
+  end
+  
+  # PATCH request: When the selected article is updated, show flash message & redirect to the article's show page.
+  def update
+    @article = Article.find(params[:id])
+    if @article.update(article_params)
+      flash[:notice] = "Article successfully updated"
+      redirect_to article_path(@article)
+    else
+      render 'edit'
+    end
   end
   
   # Tell Rails which attributes are allowed for new article objects – title and description
