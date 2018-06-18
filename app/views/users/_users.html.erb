@@ -1,0 +1,19 @@
+<table class="users-table">
+  <tr>
+    <th>Profile Picture</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Date Joined</th>
+    <th>Number of Articles</th>
+  </tr>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= link_to gravatar_for(user), user_path(user) %></td>
+      <td><%= user.username %></td>
+      <td><%= user.email %></td>
+      <td><%= time_ago_in_words(user.created_at) %> ago</td>
+      <td><%= pluralize(user.articles.count, "articles") if user.articles.count > 0 %></td>
+      <td><%= link_to "View Profile", user_path(user) %></td>
+    </tr>
+  <% end %>
+</table>
