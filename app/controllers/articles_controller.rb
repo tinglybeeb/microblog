@@ -77,7 +77,7 @@ class ArticlesController < ApplicationController
     
     # Tell Rails which attributes are allowed for new article objects – title and description
     def article_params
-      params.require(:article).permit(:title, :description)
+      params.require(:article).permit(:title, :description, :image)
     end
   
 end

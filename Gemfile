@@ -22,6 +22,8 @@ gem 'bcrypt', '~> 3.1.7'
 # Add pagination
 gem 'will_paginate', '3.1.5'
 gem 'bootstrap-will_paginate', '1.0.0'
+# Image uploader
+gem 'carrierwave', '~> 1.0'
 
 
 # Use CoffeeScript for .coffee assets and views
