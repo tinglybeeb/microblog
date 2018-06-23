@@ -3,5 +3,5 @@
 </h1>
 
 <%= link_to "Create new article", new_article_path, class:'btn btn-primary btn-create' %>
-
 <%= render 'articles', obj: @articles %>
+<%= will_paginate %>

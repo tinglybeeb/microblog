@@ -19,6 +19,10 @@ gem 'jquery-rails'
 # gem 'mini_racer', platforms: :ruby
 # Add bcrypt for password encryption
 gem 'bcrypt', '~> 3.1.7'
+# Add pagination
+gem 'will_paginate', '3.1.5'
+gem 'bootstrap-will_paginate', '1.0.0'
+
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

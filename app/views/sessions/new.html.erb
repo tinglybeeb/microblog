@@ -1,0 +1,20 @@
+<h1>
+  Log In
+</h1>
+
+<!-- Create me a form for the sessions controller, and submit it to the URL login_path which was defined in config/routes.rb -->
+<%= form_for(:session, url: login_path) do |f| %>
+<p>
+  <%= f.label :email %><br>
+  <%= f.email_field :email, placeholder: "Enter email", autofocus: true %>
+</p>
+<p>
+  <%= f.label :password %><br>
+  <%= f.password_field :password, autocomplete: false %>
+</p>
+
+<p>
+  <%= f.submit "Log In" %>
+</p>
+
+<% end %>

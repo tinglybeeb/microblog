@@ -13,15 +13,24 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+
+      # save the user's id into the session (so the user is now considered logged in for the session)
+      session[:user_id] = @user.id
+      
       flash[:success] = "Welcome, #{@user.username}!"
-      redirect_to users_path
+      redirect_to users_path(@user)
     else
       render 'new'
     end
   end
   
   def edit
-    set_user 
+    set_user
+    # if the user isn't logged in or the logged in user is not the user in /users/id/edit, then don't allow the edit.
+    if (logged_in? && current_user.id != @user.id) || !logged_in?
+      flash[:danger] = "You cannot edit this user"
+      redirect_to root_path
+    end
   end
   
   def update
@@ -29,7 +38,7 @@ class UsersController < ApplicationController
     @user.update(user_params)
     if @user.update(user_params)
       flash[:success] = "Beeb successfully updated"
-      redirect_to edit_user_path(@user)
+      redirect_to user_path(@user)
     else
       render 'edit'
     end
@@ -37,6 +46,10 @@ class UsersController < ApplicationController
   
   def show
     set_user
+    if !logged_in?
+      flash[:danger] = "Log in first before you can view users!"
+      redirect_to root_path
+    end
   end
   
   private    

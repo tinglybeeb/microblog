@@ -8,10 +8,15 @@ $navbar-border-radius: 0px;
 body {
   background: url(/assets/home-bg-1.jpg) no-repeat;
   background-size: cover;
+  
+  h1 {
+    overflow-wrap: break-word;
+  }
 }
 
+
 .navbar {
-  z-index: 11;
+  z-index: 13;
   background: none;
   border: none;
 }

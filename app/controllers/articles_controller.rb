@@ -6,7 +6,8 @@ class ArticlesController < ApplicationController
   # GET request: when the /articles URL is visited, render the index.html.erb view
   # The view uses the @articles object to generate dynamic content. @articles contains all the articles saved in the database
   def index
-    @articles = Article.all
+    # @articles = Article.all
+    @articles = Article.paginate(:page => params[:page], :per_page => 5)
   end
   
   # GET request: when the /articles/new URL is visited, run this instance method
@@ -23,7 +24,7 @@ class ArticlesController < ApplicationController
   # If article object failed validations, then render article/new again
   def create
     @article = Article.new(article_params)
-    @article.user = User.first
+    @article.user = current_user
     @article.save
     if @article.save
       flash[:notice] = "Article successfully created"

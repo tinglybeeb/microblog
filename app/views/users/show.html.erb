@@ -12,4 +12,9 @@
   <%= @user.username %>'s articles
 </h4>
 
+<!-- if the profile page belongs to the logged in user, then show the edit button -->
+<% if !logged_in? || logged_in? && current_user == @user %>
+  <%= link_to 'Edit your profile', edit_user_path(current_user), class: "btn btn-primary" %> 
+<% end %>
+
 <%= render 'articles/articles', obj: @user.articles %>
